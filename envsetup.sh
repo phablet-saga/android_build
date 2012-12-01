@@ -179,6 +179,7 @@ function setpaths()
     # needed for building linux on MacOS
     # TODO: fix the path
     #export HOST_EXTRACFLAGS="-I "$T/system/kernel_headers/host_include
+
 }
 
 function printconfig()
