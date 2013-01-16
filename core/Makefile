@@ -1183,7 +1183,7 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
 
 .PHONY: otapackage
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
-	$(hide) ./vendor/andromadus/tools/squisher
+	$(hide) ./device/htc/vision/tools/squisher
 
 # -----------------------------------------------------------------
 # The update package
