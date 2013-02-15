@@ -584,7 +584,7 @@ ifneq (true,$(TARGET_USERIMAGES_SPARSE_EXT_DISABLED))
 endif
 
 ifeq ($(INTERNAL_USERIMAGES_USE_EXT),true)
-INTERNAL_USERIMAGES_DEPS := $(MKEXTUSERIMG) $(MAKE_EXT4FS)
+INTERNAL_USERIMAGES_DEPS := $(MKEXTUSERIMG) $(MAKE_EXT4FS) $(SIMG2IMG) $(E2FSCK)
 else
 INTERNAL_USERIMAGES_DEPS := $(MKYAFFS2)
 endif
@@ -722,7 +722,6 @@ $(TARGET_RECOVERY_ROOT_TIMESTAMP): $(INTERNAL_RECOVERY_FILES) \
 
 	$(hide) -cp $(TARGET_ROOT_OUT)/init.recovery.*.rc $(TARGET_RECOVERY_ROOT_OUT)/
 	$(hide) cp -f $(recovery_binary) $(TARGET_RECOVERY_ROOT_OUT)/sbin/
-	rm -f $(TARGET_RECOVERY_ROOT_OUT)/init.*.rc
 	mkdir -p $(TARGET_RECOVERY_ROOT_OUT)/system/bin
 	$(hide) cp -rf $(recovery_resources_common) $(TARGET_RECOVERY_ROOT_OUT)/
 	$(hide) $(foreach item,$(recovery_resources_private), \
@@ -1106,7 +1105,9 @@ DISTTOOLS :=  $(HOST_OUT_EXECUTABLES)/minigzip \
 	  $(HOST_OUT_JAVA_LIBRARIES)/dumpkey.jar \
 	  $(HOST_OUT_JAVA_LIBRARIES)/signapk.jar \
 	  $(HOST_OUT_EXECUTABLES)/mkuserimg.sh \
-	  $(HOST_OUT_EXECUTABLES)/make_ext4fs
+	  $(HOST_OUT_EXECUTABLES)/make_ext4fs \
+	  $(HOST_OUT_EXECUTABLES)/simg2img \
+	  $(HOST_OUT_EXECUTABLES)/e2fsck
 
 OTATOOLS := $(DISTTOOLS) \
 	  $(HOST_OUT_EXECUTABLES)/aapt
@@ -1118,7 +1119,7 @@ otatools: $(OTATOOLS)
 UNPACKBOOTIMG :=  $(HOST_OUT_EXECUTABLES)/unpackbootimg
 
 .PHONY: unpackbootimg
-otatools: $(UNPACKBOOTIMG)
+unpackbootimg: $(UNPACKBOOTIMG)
 
 # -----------------------------------------------------------------
 # A zip of the directories that map to the target filesystem.
