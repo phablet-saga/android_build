@@ -382,10 +382,6 @@ INTERNAL_RAMDISK_FILES := $(filter $(TARGET_ROOT_OUT)/%, \
 
 BUILT_RAMDISK_TARGET := $(PRODUCT_OUT)/ramdisk.img
 
-ifeq ($(HAVE_SELINUX),true)
-SELINUX_DEPENDS := sepolicy file_contexts seapp_contexts
-endif
-
 # We just build this directly to the install location.
 INSTALLED_RAMDISK_TARGET := $(BUILT_RAMDISK_TARGET)
 $(INSTALLED_RAMDISK_TARGET): $(MKBOOTFS) $(INTERNAL_RAMDISK_FILES) | $(MINIGZIP)
@@ -1318,12 +1314,6 @@ ifneq ($(CM_BUILD),)
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := true
 else
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := false
-endif
-
-ifneq ($(NAM_VARIANT),)
-    $(INTERNAL_OTA_PACKAGE_TARGET): modelidcfg := true
-else
-    $(INTERNAL_OTA_PACKAGE_TARGET): modelidcfg := false
 endif
 
 ifeq ($(TARGET_OTA_ASSERT_DEVICE),)

@@ -490,7 +490,6 @@ function brunch()
 {
     breakfast $*
     if [ $? -eq 0 ]; then
-        export CM_FAST_BUILD=1
         mka bacon
     else
         echo "No such item in brunch menu. Try 'breakfast'"
@@ -897,7 +896,6 @@ function gdbclient()
    local OUT_SYMBOLS=$(get_abs_build_var TARGET_OUT_UNSTRIPPED)
    local OUT_SO_SYMBOLS=$(get_abs_build_var TARGET_OUT_SHARED_LIBRARIES_UNSTRIPPED)
    local OUT_EXE_SYMBOLS=$(get_abs_build_var TARGET_OUT_EXECUTABLES_UNSTRIPPED)
-   local PREBUILTS_EXTRA=$(get_abs_build_var ANDROID_PREBUILTS_EXTRA)
    local PREBUILTS=$(get_abs_build_var ANDROID_PREBUILTS)
    local ARCH=$(get_build_var TARGET_ARCH)
    local GDB
@@ -1020,11 +1018,6 @@ esac
 function getprebuilt
 {
     get_abs_build_var ANDROID_PREBUILTS
-}
-
-function getprebuiltextra
-{
-    get_abs_build_var ANDROID_PREBUILTS_EXTRA
 }
 
 function tracedmdump()

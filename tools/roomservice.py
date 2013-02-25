@@ -18,6 +18,7 @@ import sys
 import urllib2
 import json
 import re
+import netrc, base64
 from xml.etree import ElementTree
 
 product = sys.argv[1];
